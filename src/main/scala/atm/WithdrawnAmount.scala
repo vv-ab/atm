@@ -6,6 +6,7 @@ case class WithdrawnAmount(balance: Int) extends State {
     val withdrawnAmount = Console.in.readLine().toInt
     val endBalance = balance - withdrawnAmount
     println(s"Your balance now: ${endBalance}€")
+    Database.writeBalance("balance.csv", endBalance)
     MainMenu(endBalance)
   }
 }
