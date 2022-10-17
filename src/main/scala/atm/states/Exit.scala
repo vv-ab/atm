@@ -1,4 +1,6 @@
-package atm
+package atm.states
+
+import atm.State
 
 case class Exit() extends State {
   def run(): State = {

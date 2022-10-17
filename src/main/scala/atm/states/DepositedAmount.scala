@@ -1,4 +1,6 @@
-package atm
+package atm.states
+
+import atm.{Database, State}
 
 case class DepositedAmount(balance: Int) extends State {
   def run(): State = {
@@ -7,6 +9,6 @@ case class DepositedAmount(balance: Int) extends State {
     val endBalance = balance + depositedAmount
     println(s"Your balance now: ${endBalance}€")
     Database.writeBalance("balance.csv", endBalance)
-    MainMenu(endBalance)    
+    MainMenu(endBalance)
   }
 }

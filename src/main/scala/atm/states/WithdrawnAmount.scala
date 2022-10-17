@@ -1,4 +1,6 @@
-package atm
+package atm.states
+
+import atm.{Database, State}
 
 case class WithdrawnAmount(balance: Int) extends State {
   def run(): State = {

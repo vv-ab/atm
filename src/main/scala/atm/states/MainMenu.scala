@@ -1,4 +1,6 @@
-package atm
+package atm.states
+
+import atm.State
 
 case class MainMenu(balance: Int) extends State {
   def run(): State = {

@@ -1,4 +1,6 @@
-package atm
+package atm.states
+
+import atm.{Database, State}
 
 case class Initial() extends State {
   def run(): State = {
@@ -6,7 +8,7 @@ case class Initial() extends State {
     val result = Database.readBalance("balance.csv")
     result match {
       case Left(message) =>
-        atm.Error(message)
+        Error(message)
       case Right(balance) =>
         MainMenu(balance)
     }

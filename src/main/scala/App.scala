@@ -1,4 +1,5 @@
-import atm.{State, Initial}
+import atm.State
+import atm.states.Initial
 
 @main
 def main(): Unit = {
