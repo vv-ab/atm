@@ -1,0 +1,5 @@
+package atm
+
+class Account {
+
+}

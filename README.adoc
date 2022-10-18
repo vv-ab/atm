@@ -1,0 +1,32 @@
+
+= ATM =
+
+.User Account
+[plantuml]
+----
+@startuml
+
+class Account
+
+class History
+
+interface Event
+
+class DepositEvent {
+    amount: Int
+}
+
+class WithdrawEvent {
+    amount: Int
+}
+
+Account -right--> History
+History "1" o-- "n" Event
+Event --> Event : previous
+
+Event <|.. DepositEvent
+Event <|.. WithdrawEvent
+
+
+@enduml
+----
