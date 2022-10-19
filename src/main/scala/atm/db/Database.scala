@@ -8,30 +8,7 @@ import java.nio.file.{Files, Paths}
 import scala.io.Source
 
 object Database {
-  def readBalance(sourceFile: String): Either[String, Int] = {
-
-    try {
-      val source = Source.fromFile(sourceFile)
-      val balance = source.mkString.toInt
-      source.close()
-      Right(balance)
-    }
-    catch {
-      case _: FileNotFoundException => Left("account not found")
-    }
-  }
-
-  def writeBalance(destinationFile: String, balance: Int): Either[String, Unit] = {
-    val fileContent = s"$balance"
-    try {
-      Files.write(Paths.get(destinationFile), fileContent.getBytes(StandardCharsets.UTF_8))
-      Right(())
-    }
-    catch {
-      case _: Throwable => Left("failed to write balance")
-    }
-  }
-
+ 
   def readHistory(sourceFile: String): Either[String, History] = {
 
     try {
@@ -66,10 +43,10 @@ object Database {
     def foldEvents(result: String, currentEvent: Option[Event]): String = {
       currentEvent match {
         case Some(DepositEvent(amount, previous)) =>
-          val newResult = s"+ $amount\n" + result
+          val newResult = s"+ $amount\n$result"
           foldEvents(newResult, previous)
         case Some(WithdrawEvent(amount, previous)) =>
-          val newResult = s"- $amount\n" + result
+          val newResult = s"- $amount\n$result"
           foldEvents(newResult, previous)
         case _ =>
           result

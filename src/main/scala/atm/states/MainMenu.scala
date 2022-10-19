@@ -3,7 +3,7 @@ package atm.states
 import atm.State
 import atm.model.History
 
-case class MainMenu(balance: Int, history: History) extends State {
+case class MainMenu(history: History) extends State {
   def run(): State = {
     println(" What do you need?")
     println(
@@ -17,13 +17,13 @@ case class MainMenu(balance: Int, history: History) extends State {
 
     val action = Console.in.readLine().toInt
     if (action == 1) {
-      WithdrawnAmount(balance, history)
+      WithdrawnAmount(history)
     }
     else if (action == 2) {
-      DepositedAmount(balance, history)
+      DepositedAmount(history)
     }
     else if (action == 3) {
-      ShowStatement(balance, history)
+      ShowStatement(history)
     }
     else {
       Exit()

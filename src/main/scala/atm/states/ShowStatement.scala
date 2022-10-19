@@ -3,7 +3,7 @@ package atm.states
 import atm.State
 import atm.model.{DepositEvent, History, WithdrawEvent}
 
-case class ShowStatement(balance: Int, history: History) extends State {
+case class ShowStatement(history: History) extends State {
 
   def run(): State = {
     println("Your statement:")
@@ -18,6 +18,6 @@ case class ShowStatement(balance: Int, history: History) extends State {
     println(s"Balance: ${history.currentBalance()}")
     println("Enter any key to return:")
     Console.in.readLine()
-    MainMenu(balance, history)
+    MainMenu(history)
   }
 }
