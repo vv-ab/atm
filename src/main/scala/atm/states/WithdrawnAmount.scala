@@ -2,7 +2,7 @@ package atm.states
 
 import atm.db.Database
 import atm.State
-import atm.model.History
+import atm.model.{History, WithdrawEvent}
 
 case class WithdrawnAmount(balance: Int, history: History) extends State {
   def run(): State = {
@@ -11,6 +11,7 @@ case class WithdrawnAmount(balance: Int, history: History) extends State {
     val endBalance = balance - withdrawnAmount
     println(s"Your balance now: ${endBalance}€")
     Database.writeBalance("balance.csv", endBalance)
-    MainMenu(endBalance, history)
+    val newHistory = history.copy(lastEvent = Some(WithdrawEvent(withdrawnAmount, history.lastEvent)))
+    MainMenu(endBalance, newHistory)
   }
 }
