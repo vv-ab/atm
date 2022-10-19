@@ -9,7 +9,8 @@ case class MainMenu(balance: Int, history: History) extends State {
     println(
       """|1: Withdraw money
          |2: Deposit money
-         |3: Nothing
+         |3: Show statement
+         |4: Nothing
          |"""
         .stripMargin
     )
@@ -20,6 +21,9 @@ case class MainMenu(balance: Int, history: History) extends State {
     }
     else if (action == 2) {
       DepositedAmount(balance, history)
+    }
+    else if (action == 3) {
+      ShowStatement(balance, history)
     }
     else {
       Exit()
