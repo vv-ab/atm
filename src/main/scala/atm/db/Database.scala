@@ -62,4 +62,27 @@ object Database {
     }
   }
 
+  def writeHistory(destinationFile: String, history: History): Either[String, Unit] = {
+    def foldEvents(result: String, currentEvent: Option[Event]): String = {
+      currentEvent match {
+        case Some(DepositEvent(amount, previous)) =>
+          val newResult = s"+ $amount\n" + result
+          foldEvents(newResult, previous)
+        case Some(WithdrawEvent(amount, previous)) =>
+          val newResult = s"- $amount\n" + result
+          foldEvents(newResult, previous)
+        case _ =>
+          result
+      }
+    }
+    val fileContent: String = foldEvents("", history.lastEvent)
+    try {
+      Files.write(Paths.get(destinationFile), fileContent.getBytes(StandardCharsets.UTF_8))
+      Right(())
+    }
+    catch
+    {
+      case _: Throwable => Left("failed to write history")
+    }
+  }
 }

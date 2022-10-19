@@ -12,6 +12,7 @@ case class WithdrawnAmount(balance: Int, history: History) extends State {
     println(s"Your balance now: ${endBalance}€")
     Database.writeBalance("balance.csv", endBalance)
     val newHistory = history.copy(lastEvent = Some(WithdrawEvent(withdrawnAmount, history.lastEvent)))
+    Database.writeHistory("account.events", newHistory)
     MainMenu(endBalance, newHistory)
   }
 }
