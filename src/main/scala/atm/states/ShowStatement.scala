@@ -1,13 +1,13 @@
 package atm.states
 
 import atm.State
-import atm.model.{DepositEvent, History, WithdrawEvent}
+import atm.model.{Account, DepositEvent, History, WithdrawEvent}
 
-case class ShowStatement(history: History) extends State {
+case class ShowStatement(account: Account) extends State {
 
   def run(): State = {
     println("Your statement:")
-    history.forEachEvent({ event =>
+    account.history.forEachEvent({ event =>
       event match
         case DepositEvent(amount, previous) =>
           println(s"Deposit: $amount")
@@ -15,9 +15,9 @@ case class ShowStatement(history: History) extends State {
           println(s"Withdraw: $amount")
         case _ =>
     })
-    println(s"Balance: ${history.currentBalance()}")
+    println(s"Balance: ${account.history.currentBalance()}")
     println("Enter any key to return:")
     Console.in.readLine()
-    MainMenu(history)
+    MainMenu(account)
   }
 }

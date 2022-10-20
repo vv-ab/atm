@@ -31,3 +31,7 @@ case class History(lastEvent: Option[Event]) {
     sum(0, lastEvent)
   }
 }
+
+object History {
+  val empty: History = History(lastEvent = None)
+}
