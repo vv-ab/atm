@@ -5,7 +5,7 @@ import org.scalatest.freespec.AnyFreeSpec
 import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class HistorySpec {
+class HistorySpec extends AnyFreeSpec {
 
   "A History" - {
     
